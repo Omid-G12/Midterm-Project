@@ -1,4 +1,4 @@
--- Drop and recreate Menu table (Example)
+-- Drop and recreate Menu table
 
 DROP TABLE IF EXISTS menu_items CASCADE;
 CREATE TABLE menu_items (

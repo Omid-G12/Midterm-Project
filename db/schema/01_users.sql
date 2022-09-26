@@ -1,4 +1,4 @@
--- Drop and recreate Users table (Example)
+-- Drop and recreate Users table
 -- Phone_number stored as VARCHAR since regular phone numbers will exceed the INTEGER limit
 
 DROP TABLE IF EXISTS users CASCADE;

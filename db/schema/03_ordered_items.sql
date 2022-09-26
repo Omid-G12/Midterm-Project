@@ -1,4 +1,4 @@
--- Drop and recreate ordered_items (Example)
+-- Drop and recreate ordered_items
 
 DROP TABLE IF EXISTS ordered_items CASCADE;
 CREATE TABLE ordered_items (
