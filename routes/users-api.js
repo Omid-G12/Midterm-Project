@@ -14,9 +14,6 @@ router.get("/login", (req, res) => {
     return res.redirect("/menu");
   }
 
-  const userId = req.session.user_id;
-  const user = users[userId];
-
   res.render("login", database);
 });
 
@@ -24,9 +21,6 @@ router.get("/register", (req, res) => {
   if (req.session.user_id) {
     return res.redirect("/menu");
   }
-
-  const userId = req.session.user_id;
-  const user = users[userId];
 
   res.render("register", database);
 });
