@@ -16,6 +16,7 @@ app.set('view engine', 'ejs');
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
+
 app.use(
   '/styles',
   sassMiddleware({
@@ -24,6 +25,8 @@ app.use(
     isSass: false, // false => scss, true => sass
   })
 );
+
+
 app.use(express.static('public'));
 
 // Separated Routes for each Resource
@@ -59,6 +62,15 @@ app.get("/checkout", (req, res) => {
 app.get("/confirmation", (req, res) => {
   res.render("confirmation");
 });
+
+app.get("/login", (req, res) => {
+  res.render("login");
+});
+
+app.get("/register", (req, res) => {
+  res.render("register");
+});
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
