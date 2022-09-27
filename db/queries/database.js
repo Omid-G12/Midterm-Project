@@ -49,6 +49,20 @@ const addOrderItem =  function(order_item) {
     });
 }
 
+const addOrder =  function(order) {
+  return db
+    .query(
+      `INSERT INTO orders (user_id, total, duration)
+      VALUES ($1, $2, $3)
+      RETURNING *;`,
+      [order.user_id, order.total, order.duration])
+    .then((result) => {
+      console.log(result.rows[0]);
+      return result.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+}
 
-
-module.exports = { getUsers, getUserWithEmail, addUser, addOrderItem };
+module.exports = { getUsers, getUserWithEmail, addUser, addOrderItem, addOrder };
