@@ -20,7 +20,35 @@
 <body>
   <%- include('partials/_header') %>
    
-    <h1>Order Page</h1>
+    <h1>Checkout Page</h1>
+    
+
+    <div class="menu_display">
+      <div class="aside"> <img class="user" src="ITEM IMAGE"></div>
+        <div class="menu_info">
+         <p class="item-name">ITEM NAME: Dish1</p>
+         <p class="item-price">ITEM PRICE: $10 </p>
+        </div>
+        <input type="button" value="+" class="increment"/>
+        <label class="display" data-product-id="" id="" > 3</label>
+        <input type="button" value="-" class="decrement"/>
+        <button class="delete" type="button" class="btn btn-success">Delete</button>
+      </div>
+  
+    <div class="menu_display">
+      <div class="aside"> <img class="user" src="ITEM IMAGE"></div>
+      <div class="menu_info">
+        <p class="item-name">ITEM NAME: Dish2</p>
+         <p class="item-price">ITEM PRICE: $20 </p>
+      </div>
+        <input type="button" value="+" class="increment"/>
+        <label class="display" data-product-id="" id="" > 2</label>
+        <input type="button" value="-" class="decrement"/>
+        <button class="delete" type="button" class="btn btn-success">Delete</button>
+    </div>
+
+   
+
 </body>
 
 </html>

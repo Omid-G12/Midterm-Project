@@ -1,6 +1,5 @@
 .menu {
-    background-image: url('/public/images/_coverpage_2.jpg');
-    background-repeat: no-repeat;
+     background-repeat: no-repeat;
     background-size: 100vw 100vh;
     background-attachment: fixed;
   }
@@ -19,4 +18,10 @@
   
   .menu-list {
     list-style-type: none;
+  }
+
+  .user {
+    width: 80%;
+    height: 80%;
+    margin: 20px;
   }

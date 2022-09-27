@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Foodie</title>
+    <title>Menu</title>
 
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -24,65 +24,43 @@
   <body>
     <%- include('partials/_header') %>
     <h1>Add menu here</h1>
-    <div class="menu_display" >
-      <img class="" src="" />
-      <div>
-        <div>
-          <p class="item-name">Item Name: Item 1 </p>
+    
+    
+    <div class="menu_display">
+      <img  class="user" src="/public/images/menumenu.jpg">
+      <div class="menu-info-and-button">
+        <div class="menu_info">
+          <p class="item-name">Item Name: Item 1</p>
           <p class="item-description">Item description: This is the most special dish of the restaurant</p>
-          <p class="item-price">Item Price : $ 10 </p>
+          <p class="item-price">Item Price : $ 10</p>
         </div>
 
         <div class="menu_change">
-          <input type="button" value="+" class="" onclick="" />
-          <label>0</label>
-          <input type="button" value="-" class="" onclick="" />
-          <button class="add-to-cart" type="button" class="">
-           Add To Cart
-          </button>
+          <input type="button" value="+" class="increment" onclick=""/>
+          <label class="display">0</label>
+          <input type="button" value="-" class="decrement" onclick=""/>
+          <button class="add-to-cart" type="button" class="btn btn-success">Add To Cart</button>
         </div>
       </div>
     </div>
+  
 
-    <div class="menu_display" >
-      <img class="" src="" />
-      <div>
-        <div>
-          <p class="item-name">Item Name: Item 2 </p>
-          <p class="item-description">Item description: This is the most special dish of the restaurant</p>
-          <p class="item-price">Item Price : $ 20 </p>
+    <div class="menu_display">
+      <img class="user" src="/public/images/2-soup-butternut-squash.jpg">
+      <div class="menu-info-and-button">
+        <div class="menu_info">
+          <p class="item-name">Item Name: Item 2</p>
+          <p class="item-description">Item description: This is the most tasty dish of the restaurant</p>
+          <p class="item-price">Item Price : $ 20</p>
         </div>
 
         <div class="menu_change">
-          <input type="button" value="+" class="" onclick="" />
-          <label>2</label>
-          <input type="button" value="-" class="" onclick="" />
-          <button class="add-to-cart" type="button" class="">
-           Add To Cart
-          </button>
+          <input type="button" value="+" class="increment" onclick=""/>
+          <label class="display">0</label>
+          <input type="button" value="-" class="decrement" onclick=""/>
+          <button class="add-to-cart" type="button" class="btn btn-success">Add To Cart</button>
         </div>
       </div>
     </div>
-
-    <div class="menu_display" >
-      <img class="" src="" />
-      <div>
-        <div>
-          <p class="item-name">Item Name: Item 3 </p>
-          <p class="item-description">Item description: This is the most special dish of the restaurant</p>
-          <p class="item-price">Item Price : $ 30 </p>
-        </div>
-
-        <div class="menu_change">
-          <input type="button" value="+" class="" onclick="" />
-          <label>3</label>
-          <input type="button" value="-" class="" onclick="" />
-          <button class="add-to-cart" type="button" class="">
-           Add To Cart
-          </button>
-        </div>
-      </div>
-    </div>
-
   </body>
 </html>

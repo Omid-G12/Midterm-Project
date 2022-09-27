@@ -16,29 +16,5 @@
       font-weight: 900;
     }
   
-    .index-button {
-      border: olive;
-      border: solid;
-      font-size: x-large;
-      font-family: "Bungee";
-      background-color:#9ccc9c;
-      color: darkolivegreen;
-      padding: 10px;
-      display: inline-block;
-  
-  
-      &:hover {
-        cursor: pointer;
-        outline: 2px solid #ffff00;
-      }
-  
-      a {
-        color: #ffff00;
-  
-        &:hover {
-          color: #5ca08e;
-          text-decoration: none;
-        }
-      }
-    }
+   
   }
