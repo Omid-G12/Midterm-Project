@@ -19,14 +19,18 @@
 
 <body>
   <%- include('partials/_header') %>
-   
+
   <h2>Please register here</h2>
-      
+
   <form method="POST" action="/register">
     <main style="margin: 1em">
       <div class="row">
       <div class="col-sm-4">
         <form method="POST" action="/register">
+          <h6>Name:</h6>
+          <input class="form-control" type="text" name="name" placeholder="Please enter your name" style="width: 300px">
+          <h6>Phone:</h6>
+          <input class="form-control" type="text" name="phone_number" placeholder="Please enter your phone number" style="width: 300px">
           <h6>E-mail:</h6>
           <input class="form-control" type="text" name="email" placeholder="Please enter your E-mail" style="width: 300px">
           <h6>Password:</h6>
