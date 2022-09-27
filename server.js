@@ -44,20 +44,53 @@ app.use('/users', usersRoutes);
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
-app.get('/', (req, res) => {
-  res.render('index');
+app.get("/login", (req, res) => {
+  if (req.session.user_id) {
+    return res.redirect("/home");
+  }
+
+  const userId = req.session.user_id;
+  const user = users[userId];
+
+  res.render("login", { user });
 });
 
-app.get("/menu", (req, res) => {
-  res.render("menu");
+app.get("/register", (req, res) => {
+  if (req.session.user_id) {
+    return res.redirect("/home");
+  }
+
+  const userId = req.session.user_id;
+  const user = users[userId];
+
+  res.render("register", { user });
 });
 
-app.get("/checkout", (req, res) => {
-  res.render("checkout");
+app.get("/", (req, res) => {
+  if (req.session.user_id) {
+    return res.redirect("/home");
+  }
+  else {
+    res.redirect("/login");
+  }
 });
 
-app.get("/confirmation", (req, res) => {
-  res.render("confirmation");
+app.get("/home", (req, res) => {
+  if (req.session.user_id) {
+    const userId = req.session.user_id;
+    const user = users[userId];
+
+    return res.render("home", { user });
+  }
+  else {
+    res.redirect("/login");
+  }
+});
+
+app.get("/order/id", (req, res) => {
+  if (!req.session.user_id) {
+    res.redirect("/login");
+  }
 });
 
 app.listen(PORT, () => {
