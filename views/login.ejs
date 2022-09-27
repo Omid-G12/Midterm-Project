@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Foodie</title>
+
+  <meta charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" />
+  <link rel="stylesheet" href="/styles/main.css" />
+  <link rel="stylesheet" href="/styles/layout.css" />
+
+  <script src="/vendor/jquery-3.0.0.js"></script>
+  <script defer src="/scripts/app.js"></script>
+</head>
+
+<body>
+  <%- include('partials/_header') %>
+  <h2>Please Login here</h2>
+  <main style="margin: 1em">
+    <div class="row">
+    <div class="col-sm-4">
+      <form method="POST" action="/login">
+        <h6>E-mail</h6>
+        <input class="form-control" type="text" name="email" placeholder="Please enter your E-mail" style="width: 300px; ">
+        <h6>Password:</h6>
+        <input class="form-control" type="password" name="password" placeholder="Please enter a password" style="width: 300px;">
+        <br>
+        <button type="submit" class="btn btn-outline-primary" value="submit">Login</button>
+      </form>
+    </div>
+  </main>
+
+
+
+
+
+</body>
+
+</html>
