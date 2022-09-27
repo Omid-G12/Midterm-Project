@@ -106,13 +106,17 @@ const getMenuItems = () => {
   return db.query('SELECT * FROM menu_items;')
     .then(data => {
       return data.rows;
-    });
+    })
 };
 
 const getOrderItems = () => {
   return db.query('SELECT * FROM ordered_items;')
     .then(data => {
       return data.rows;
+    })
+    .catch((err) => {
+      console.log(err.message);
+      return null;
     });
 };
 

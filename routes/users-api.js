@@ -7,9 +7,9 @@
 
 const express = require('express');
 const router  = express.Router();
-const userQueries = require('../db/queries/users');
+const userQueries = require('../db/queries/database');
 
-app.get("/login", (req, res) => {
+router.get("/login", (req, res) => {
   if (req.session.user_id) {
     return res.redirect("/menu");
   }
@@ -20,7 +20,7 @@ app.get("/login", (req, res) => {
   res.render("login", database);
 });
 
-app.get("/register", (req, res) => {
+router.get("/register", (req, res) => {
   if (req.session.user_id) {
     return res.redirect("/menu");
   }
@@ -32,7 +32,7 @@ app.get("/register", (req, res) => {
 });
 
 const login =  function(email, password) {
-  return database.getUserWithEmail(email)
+  return database.getUserByEmail(email)
   .then(user => {
     if (bcrypt.compareSync(password, user.password)) {
       return user;
@@ -41,7 +41,7 @@ const login =  function(email, password) {
   });
 }
 
-app.post("/login", (req, res) => {
+router.post("/login", (req, res) => {
   const {email, password} = req.body;
   login(email, password)
     .then(user => {
@@ -55,21 +55,7 @@ app.post("/login", (req, res) => {
     .catch(e => res.send(e));
 });
 
-app.post("/register", (req, res) => {
-  const {name, phone_number, email, password} = req.body;
-  addUser(name, phone_number, email, password)
-    .then(user => {
-      if (!user) {
-        res.send({error: "email already exists"});
-        return;
-      }
-      req.session.userId = user.id;
-      res.send({user: {name: user.name, email: user.email, id: user.id}});
-    })
-    .catch(e => res.send(e));
-});
-
-app.get("/", (req, res) => {
+router.get("/", (req, res) => {
   if (req.session.user_id) {
     return res.redirect("/menu");
   }
@@ -78,7 +64,7 @@ app.get("/", (req, res) => {
   }
 });
 
-app.get("/menu", (req, res) => {
+router.get("/menu", (req, res) => {
   if (req.session.user_id) {
     return res.render("menu", database);
   }
@@ -87,7 +73,7 @@ app.get("/menu", (req, res) => {
   }
 });
 
-app.get("/order/id", (req, res) => {
+router.get("/order/id", (req, res) => {
   if (!req.session.user_id) {
     res.redirect("/login");
   }
@@ -95,14 +81,15 @@ app.get("/order/id", (req, res) => {
   res.render("checkout", database);
 });
 
-app.post("/register", (req, res) => {
+router.post("/register", (req, res) => {
   const {name, phone_number, email, password} = req.body;
   const hashedPassword = bcrypt.hashSync(req.body.password, 10);
+  const user = {name, phone_number, email, password: hashedPassword};
   if (!name || !phone_number || !email|| !password) {
     return res.status(400).send("Error: input fields cannot be empty.");
   }
 
-  createUser(name, phone_number, email, hashedPassword)
+  createUser(user)
     .then(user => {
       if (!user) {
         res.send({error: "email already exists"});
