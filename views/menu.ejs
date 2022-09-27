@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/vendor/border-box.css" />
     <link rel="stylesheet" href="/styles/main.css" />
     <link rel="stylesheet" href="/styles/layout.css" />
+    <link rel="stylesheet" href="/styles/menu.css" type="text/css" />
 
 
     <!-- Bootstrap -->
@@ -23,7 +24,7 @@
 
   <body>
     <%- include('partials/_header') %>
-    <h1>Add menu here</h1>
+    <h1>Menu Page</h1>
     
     
     <div class="menu_display">
@@ -37,7 +38,7 @@
 
         <div class="menu_change">
           <input type="button" value="+" class="increment" onclick=""/>
-          <label class="display">0</label>
+          <label class="display">1</label>
           <input type="button" value="-" class="decrement" onclick=""/>
           <button class="add-to-cart" type="button" class="btn btn-success">Add To Cart</button>
         </div>
@@ -60,7 +61,18 @@
           <input type="button" value="-" class="decrement" onclick=""/>
           <button class="add-to-cart" type="button" class="btn btn-success">Add To Cart</button>
         </div>
+
+        <div class="menu_display">
+          <div class="col">
+            <p id="totalprice"><strong>Order Total : $200 </strong></p>
+          </div>
+          <button type="button" class="btn btn-success" id="place-order"  href="/checkout" > Ready to checkout</button>
+        </div>
       </div>
     </div>
+
+
+    <div id="cartcontainer"></div>
+    <script src="cart.js"></script>
   </body>
 </html>
