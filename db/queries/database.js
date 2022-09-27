@@ -36,10 +36,10 @@ const addUser =  function(user) {
 const addOrderItem =  function(order_item) {
   return db
     .query(
-      `INSERT INTO order_items (menu_item_id, user_id, quantity)
-      VALUES ($1, $2, $3)
+      `INSERT INTO order_items (order_id, menu_item_id, user_id, quantity)
+      VALUES ($1, $2, $3, $4)
       RETURNING *;`,
-      [order_item.menu_item_id, order_item.user_id, order_item.quantity])
+      [order_item.order_id, order_item.menu_item_id, order_item.user_id, order_item.quantity])
     .then((result) => {
       console.log(result.rows[0]);
       return result.rows[0];
