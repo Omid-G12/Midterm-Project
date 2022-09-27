@@ -8,5 +8,5 @@ CREATE TABLE orders (
   time_created TIMESTAMP NOT NULL DEFAULT Now(),
   duration INTEGER,
   is_complete BOOLEAN NOT NULL DEFAULT FALSE,
-  rating INTEGER DEFAULT 5
+  rating INTEGER DEFAULT NULL
 );
