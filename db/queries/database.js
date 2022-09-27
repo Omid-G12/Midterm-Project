@@ -51,7 +51,7 @@ const createUser =  function(user) {
     .catch((err) => {
       console.log(err.message);
     });
-}
+};
 
 const addOrderItem =  function(order_item) {
   return db
@@ -67,7 +67,7 @@ const addOrderItem =  function(order_item) {
     .catch((err) => {
       console.log(err.message);
     });
-}
+};
 
 const orderTotal =  function() {
   return db
@@ -84,7 +84,7 @@ const orderTotal =  function() {
     .catch((err) => {
       console.log(err.message);
     });
-}
+};
 
 const addOrder =  function(order) {
   return db
@@ -100,6 +100,20 @@ const addOrder =  function(order) {
     .catch((err) => {
       console.log(err.message);
     });
-}
+};
 
-module.exports = { getUsers, getUserByEmail, getUserById, getIdFromEmail, createUser, addOrderItem, orderTotal, addOrder };
+const getMenuItems = () => {
+  return db.query('SELECT * FROM menu_items;')
+    .then(data => {
+      return data.rows;
+    });
+};
+
+const getOrderItems = () => {
+  return db.query('SELECT * FROM ordered_items;')
+    .then(data => {
+      return data.rows;
+    });
+};
+
+module.exports = { getUsers, getUserByEmail, getUserById, getIdFromEmail, createUser, addOrderItem, orderTotal, addOrder, getMenuItems, getOrderItems };
