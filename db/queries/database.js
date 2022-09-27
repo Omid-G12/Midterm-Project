@@ -54,7 +54,9 @@ const orderTotal =  function() {
     .query(`
       SELECT sum(menu_items.price * ordered_items.quantity) as total
       FROM menu_items
-      JOIN ordered_items ON menu_items.id = ordered_items.menu_item_id;`)
+      JOIN ordered_items ON menu_items.id = ordered_items.menu_item_id
+      JOIN orders ON ordered_items.order_id = orders.id
+      GROUP BY orders.id;`)
     .then((result) => {
       console.log(result.rows[0]);
       return result.rows[0];
