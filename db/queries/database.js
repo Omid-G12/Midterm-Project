@@ -49,6 +49,21 @@ const addOrderItem =  function(order_item) {
     });
 }
 
+const orderTotal =  function() {
+  return db
+    .query(`
+      SELECT sum(menu_items.price * ordered_items.quantity) as total
+      FROM menu_items
+      JOIN ordered_items ON menu_items.id = ordered_items.menu_item_id;`)
+    .then((result) => {
+      console.log(result.rows[0]);
+      return result.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+}
+
 const addOrder =  function(order) {
   return db
     .query(
@@ -65,4 +80,4 @@ const addOrder =  function(order) {
     });
 }
 
-module.exports = { getUsers, getUserWithEmail, addUser, addOrderItem, addOrder };
+module.exports = { getUsers, getUserWithEmail, addUser, addOrderItem, orderTotal, addOrder };
