@@ -17,6 +17,16 @@ const getUserByEmail = (email) => {
     });
 };
 
+const getUserById = (id) => {
+  return db.query('SELECT * FROM users Where id = $1;', [id || null])
+    .then(data => {
+      return data.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+
 const getIdFromEmail = (email) => {
   return db.query('SELECT id FROM users Where email = $1;', [email || null])
     .then(data => {
@@ -92,4 +102,4 @@ const addOrder =  function(order) {
     });
 }
 
-module.exports = { getUsers, getUserByEmail, getIdFromEmail, createUser, addOrderItem, orderTotal, addOrder };
+module.exports = { getUsers, getUserByEmail, getUserById, getIdFromEmail, createUser, addOrderItem, orderTotal, addOrder };
