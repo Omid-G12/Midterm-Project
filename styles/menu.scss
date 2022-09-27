@@ -1,0 +1,22 @@
+.menu {
+    background-image: url('/public/images/_coverpage_2.jpg');
+    background-repeat: no-repeat;
+    background-size: 100vw 100vh;
+    background-attachment: fixed;
+  }
+  
+  .menu-item {
+    margin: 2rem 20rem;
+    font-size: 1.5rem;
+    padding: 1rem 0;
+  
+    a {
+      text-decoration: none;
+      color: inherit;
+      margin: 0 3rem;
+    }
+  }
+  
+  .menu-list {
+    list-style-type: none;
+  }
