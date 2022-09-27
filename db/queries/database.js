@@ -7,7 +7,7 @@ const getUsers = () => {
     });
 };
 
-const getUserWithEmail = (email) => {
+const getUserByEmail = (email) => {
   return db.query('SELECT * FROM users Where email = $1;', [email || null])
     .then(data => {
       return data.rows[0];
@@ -17,7 +17,17 @@ const getUserWithEmail = (email) => {
     });
 };
 
-const addUser =  function(user) {
+const getIdFromEmail = (email) => {
+  return db.query('SELECT id FROM users Where email = $1;', [email || null])
+    .then(data => {
+      return data.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+
+const createUser =  function(user) {
   return db
     .query(
       `INSERT INTO users (name, phone_number, email, password)
@@ -82,4 +92,4 @@ const addOrder =  function(order) {
     });
 }
 
-module.exports = { getUsers, getUserWithEmail, addUser, addOrderItem, orderTotal, addOrder };
+module.exports = { getUsers, getUserByEmail, getIdFromEmail, createUser, addOrderItem, orderTotal, addOrder };
