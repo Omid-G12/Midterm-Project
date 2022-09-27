@@ -31,68 +31,28 @@ app.use(express.static('public'));
 const userApiRoutes = require('./routes/users-api');
 const widgetApiRoutes = require('./routes/widgets-api');
 const usersRoutes = require('./routes/users');
+const database = require('./routes/database');
+const orderRoutes = require('./routes/order');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use('/api/users', userApiRoutes);
 app.use('/api/widgets', widgetApiRoutes);
-app.use('/users', usersRoutes);
+// app.use('/users', usersRoutes);
+app.use('/api/order', orderRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
-app.get("/login", (req, res) => {
-  if (req.session.user_id) {
-    return res.redirect("/home");
-  }
-
-  const userId = req.session.user_id;
-  const user = users[userId];
-
-  res.render("login", { user });
-});
-
-app.get("/register", (req, res) => {
-  if (req.session.user_id) {
-    return res.redirect("/home");
-  }
-
-  const userId = req.session.user_id;
-  const user = users[userId];
-
-  res.render("register", { user });
-});
-
-app.get("/", (req, res) => {
-  if (req.session.user_id) {
-    return res.redirect("/home");
-  }
-  else {
-    res.redirect("/login");
-  }
-});
-
-app.get("/home", (req, res) => {
-  if (req.session.user_id) {
-    const userId = req.session.user_id;
-    const user = users[userId];
-
-    return res.render("home", { user });
-  }
-  else {
-    res.redirect("/login");
-  }
-});
-
-app.get("/order/id", (req, res) => {
-  if (!req.session.user_id) {
-    res.redirect("/login");
-  }
-});
+app.get('/', (req, res) => {
+  res.render('index');
+})
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
+
+
