@@ -103,14 +103,15 @@ const addOrder =  function(order) {
 };
 
 const getMenuItems = () => {
-  return db.query('SELECT * FROM menu_items;')
+  return db.query(`SELECT * FROM menu_items;`)
     .then(data => {
       return data.rows;
     });
 };
 
-const getOrderItems = () => {
-  return db.query('SELECT * FROM ordered_items;')
+const getOrderItems = (order_id) => {
+  return db.query(`SELECT * FROM ordered_items
+  WHERE order_id = $1;`, [order_id])
     .then(data => {
       return data.rows;
     });
