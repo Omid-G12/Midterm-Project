@@ -70,14 +70,22 @@ router.get("/menu", (req, res) => {
     res.redirect("/login");
 });
 
-router.get("/confirmation", (req, res) => {
+router.get("/checkout/:id", (req, res) => {
   if (!req.session.user_id) {
     return res.redirect("/login");
   }
 
-  const order = getOrderItems()
+  const orderItems = getOrderItems();
 
-  res.render("checkout");
+  res.render("checkout", orderItems);
+});
+
+router.get("/confirmation/:id", (req, res) => {
+  if (!req.session.user_id) {
+    return res.redirect("/login");
+  }
+
+  res.render("confirmation", orderTotal());
 });
 
 router.post("/register", (req, res) => {
