@@ -17,6 +17,7 @@ router.get("/login", (req, res) => {
   res.render("login");
 });
 
+
 router.get("/register", (req, res) => {
   if (req.session.user_id) {
     return res.redirect("/menu");
@@ -27,7 +28,7 @@ router.get("/register", (req, res) => {
 
 const login =  function(email, password) {
   return database.getUserByEmail(email)
-  .then(user => {
+  .then((user) => {
     if (bcrypt.compareSync(password, user.password)) {
       return user;
     }
