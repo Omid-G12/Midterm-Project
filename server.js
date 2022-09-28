@@ -3,6 +3,7 @@ require('dotenv').config();
 
 // Web server config
 const sassMiddleware = require('./lib/sass-middleware');
+const cookieSession = require('cookie-session');
 const express = require('express');
 const morgan = require('morgan');
 
@@ -16,6 +17,14 @@ app.set('view engine', 'ejs');
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1'],
+
+  // Cookie Options
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}));
 
 app.use(
   '/styles',
@@ -41,7 +50,7 @@ const { getMenuItems } = require('./db/queries/database');
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
-app.use('/api/users', userApiRoutes);
+app.use('/', userApiRoutes);
 app.use('/api/widgets', widgetApiRoutes);
 // app.use('/users', usersRoutes);
 app.use('/api/order', orderRoutes);
@@ -51,37 +60,36 @@ app.use('/api/order', orderRoutes);
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
-/*
-app.get('/', (req, res) => {
-  res.render('index');
-});
 
-app.get("/menu", (req, res) => {
-  console.log(database.getMenuItems())
-  res.render("menu");
-});
+// app.get('/', (req, res) => {
+//   res.render('index');
+// });
 
-app.get("/checkout", (req, res) => {
-  res.render("checkout");
-});
+// app.get("/menu", (req, res) => {
+//   console.log(database.getMenuItems())
+//   res.render("menu");
+// });
 
-app.get("/confirmation", (req, res) => {
-  res.render("confirmation");
-});
+// app.get("/checkout", (req, res) => {
+//   res.render("checkout");
+// });
 
-app.get("/login", (req, res) => {
-  res.render("login");
-});
+// app.get("/confirmation", (req, res) => {
+//   res.render("confirmation");
+// });
 
-app.get("/register", (req, res) => {
-  res.render("register");
-});
+// app.get("/login", (req, res) => {
+//   res.render("login");
+// });
 
-app.get("/menuandcart", (req, res) => {
-  res.render("menuandcart");
-});
+// app.get("/register", (req, res) => {
+//   res.render("register");
+// });
 
-*/
+// app.get("/menuandcart", (req, res) => {
+//   res.render("menuandcart");
+// });
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

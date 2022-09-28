@@ -7,7 +7,7 @@
 
 const express = require('express');
 const router  = express.Router();
-const userQueries = require('../db/queries/database');
+const database = require('../db/queries/database');
 
 router.get("/login", (req, res) => {
   if (req.session.user_id) {
@@ -57,9 +57,8 @@ router.get("/", (req, res) => {
 });
 
 router.get("/menu", (req, res) => {
-  const menu = database.getMenuItems();
-
   if (req.session.user_id) {
+    const menu = database.getMenuItems();
     return res.render("menu", menu);
   }
 
@@ -96,7 +95,7 @@ router.post("/register", (req, res) => {
     return res.status(400).send("Error: input fields cannot be empty.");
   }
 
-  if (getUserByEmail(email) !== null) {
+  if (database.getUserByEmail(email) !== null) {
     return res.send({error: "email already exists"});
   }
 
@@ -104,7 +103,7 @@ router.post("/register", (req, res) => {
   const user = {name, phone_number, email, password: hashedPassword};
 
 
-  createUser(user)
+  database.createUser(user)
     .then(user => {
       req.session.userId = user.id;
       res.redirect("/menu");
