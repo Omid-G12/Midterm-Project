@@ -36,6 +36,7 @@ const widgetApiRoutes = require('./routes/widgets-api');
 //const usersRoutes = require('./routes/users');
 //const database = require('./routes/database');
 const orderRoutes = require('./routes/order');
+const { getMenuItems } = require('./db/queries/database');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -50,11 +51,13 @@ app.use('/api/order', orderRoutes);
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
+/*
 app.get('/', (req, res) => {
   res.render('index');
 });
 
 app.get("/menu", (req, res) => {
+  console.log(database.getMenuItems())
   res.render("menu");
 });
 
@@ -77,6 +80,8 @@ app.get("/register", (req, res) => {
 app.get("/menuandcart", (req, res) => {
   res.render("menuandcart");
 });
+
+*/
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
