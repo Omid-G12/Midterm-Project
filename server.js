@@ -33,8 +33,8 @@ app.use(express.static('public'));
 // Note: Feel free to replace the example routes below with your own
 const userApiRoutes = require('./routes/users-api');
 const widgetApiRoutes = require('./routes/widgets-api');
-const usersRoutes = require('./routes/users');
-const database = require('./routes/database');
+//const usersRoutes = require('./routes/users');
+//const database = require('./routes/database');
 const orderRoutes = require('./routes/order');
 
 // Mount all resource routes
@@ -52,7 +52,28 @@ app.use('/api/order', orderRoutes);
 
 app.get('/', (req, res) => {
   res.render('index');
-})
+});
+
+app.get("/menu", (req, res) => {
+  res.render("menu");
+});
+
+app.get("/checkout", (req, res) => {
+  res.render("checkout");
+});
+
+app.get("/confirmation", (req, res) => {
+  res.render("confirmation");
+});
+
+app.get("/login", (req, res) => {
+  res.render("login");
+});
+
+app.get("/register", (req, res) => {
+  res.render("register");
+});
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
