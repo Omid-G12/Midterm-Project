@@ -1,31 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>Menu</title>
 
-<head>
-  <title>Foodie</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <meta charset="UTF-8" >
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
+    <link rel="stylesheet" href="/styles/menu.css" type="text/css" />
 
-  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
-  <link rel="stylesheet" href="/vendor/border-box.css" />
-  <link rel="stylesheet" href="/styles/main.css" />
-  <link rel="stylesheet" href="/styles/layout.css" />
 
-  <script src="/vendor/jquery-3.0.0.js"></script>
-  <script defer src="/scripts/app.js"></script>
-</head>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" 
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-<body>
-    <h1>Add menu here</h1>
-    <h4>Item 1</h4>
-    <p>Menu Description</p>
-    <h4>Item 2</h4>
-    <p>Menu Description</p>
-    <h4>Item 3</h4>
-    <p>Menu Description</p>
-    <h4>Item 4</h4>
-    <p>Menu Description</p>
-</body>
+    <script src="/vendor/jquery-3.0.0.js"></script>
+    <script defer src="/scripts/app.js"></script>
+  </head>
+
+  <body>
+    <%- include('partials/_header') %>
+    <h1>Menu Page</h1>
+    
+    
+    <div class="menu_display">
+      <img  class="user" src="/public/images/menumenu.jpg">
+      <div class="menu-info-and-button">
+        <div class="menu_info">
+          <p class="item-name">Item Name: Item 1</p>
+          <p class="item-description">Item description: This is the most special dish of the restaurant</p>
+          <p class="item-price">Item Price : $ 10</p>
+        </div>
+
+        <div class="menu_change">
+          <input type="button" value="+" class="increment" onclick=""/>
+          <label class="display">1</label>
+          <input type="button" value="-" class="decrement" onclick=""/>
+          <button class="add-to-cart" type="button" class="btn btn-success">Add To Cart</button>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="menu_display">
+      <img class="user" src="/public/images/2-soup-butternut-squash.jpg">
+      <div class="menu-info-and-button">
+        <div class="menu_info">
+          <p class="item-name">Item Name: Item 2</p>
+          <p class="item-description">Item description: This is the most tasty dish of the restaurant</p>
+          <p class="item-price">Item Price : $ 20</p>
+        </div>
+
+        <div class="menu_change">
+          <input type="button" value="+" class="increment" onclick=""/>
+          <label class="display">0</label>
+          <input type="button" value="-" class="decrement" onclick=""/>
+          <button class="add-to-cart" type="button" class="btn btn-success">Add To Cart</button>
+        </div>
+
+        <div class="menu_display">
+          <div class="col">
+            <p id="totalprice"><strong>Order Total : $200 </strong></p>
+          </div>
+          <button type="button" class="btn btn-success" id="place-order"  href="/checkout" > Ready to checkout</button>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="cartcontainer"></div>
+    <script src="cart.js"></script>
+  </body>
 </html>

@@ -14,6 +14,7 @@ const getUserByEmail = (email) => {
     })
     .catch((err) => {
       console.log(err.message);
+      return null;
     });
 };
 
@@ -24,6 +25,7 @@ const getUserById = (id) => {
     })
     .catch((err) => {
       console.log(err.message);
+      return null;
     });
 };
 
@@ -34,6 +36,7 @@ const getIdFromEmail = (email) => {
     })
     .catch((err) => {
       console.log(err.message);
+      return null;
     });
 };
 
@@ -50,6 +53,7 @@ const createUser =  function(user) {
     })
     .catch((err) => {
       console.log(err.message);
+      return null;
     });
 };
 
@@ -66,6 +70,7 @@ const addOrderItem =  function(order_item) {
     })
     .catch((err) => {
       console.log(err.message);
+      return null;
     });
 };
 

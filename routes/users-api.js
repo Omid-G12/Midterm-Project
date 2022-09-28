@@ -14,7 +14,9 @@ router.get("/login", (req, res) => {
     return res.redirect("/menu");
   }
 
-  res.render("login", database);
+  const users = getUsers();
+
+  res.render("login", users);
 });
 
 router.get("/register", (req, res) => {
@@ -22,7 +24,9 @@ router.get("/register", (req, res) => {
     return res.redirect("/menu");
   }
 
-  res.render("register", database);
+  const users = getUsers();
+
+  res.render("register", users);
 });
 
 const login =  function(email, password) {
@@ -46,56 +50,59 @@ router.post("/login", (req, res) => {
       req.session.userId = user.id;
       res.send({user: {name: user.name, email: user.email, id: user.id}});
     })
-    .catch(e => res.send(e));
+    .catch(e => res.send('Error'));
 });
 
 router.get("/", (req, res) => {
   if (req.session.user_id) {
     return res.redirect("/menu");
   }
-  else {
     res.redirect("/login");
-  }
 });
 
 router.get("/menu", (req, res) => {
+  const menu = getMenuItems();
+
   if (req.session.user_id) {
-    return res.render("menu", database);
+    return res.render("menu", menu);
   }
-  else {
+
     res.redirect("/login");
-  }
 });
 
-router.get("/order/id", (req, res) => {
+router.get("/confirmation", (req, res) => {
   if (!req.session.user_id) {
-    res.redirect("/login");
+    return res.redirect("/login");
   }
 
-  res.render("checkout", database);
+  const order = getOrderItems()
+
+  res.render("checkout");
 });
 
 router.post("/register", (req, res) => {
   const {name, phone_number, email, password} = req.body;
-  const hashedPassword = bcrypt.hashSync(req.body.password, 10);
-  const user = {name, phone_number, email, password: hashedPassword};
+
   if (!name || !phone_number || !email|| !password) {
     return res.status(400).send("Error: input fields cannot be empty.");
   }
 
+  if (getUserByEmail(email) !== null) {
+    return res.send({error: "email already exists"});
+  }
+
+  const hashedPassword = bcrypt.hashSync(req.body.password, 10);
+  const user = {name, phone_number, email, password: hashedPassword};
+
+
   createUser(user)
     .then(user => {
-      if (!user) {
-        res.send({error: "email already exists"});
-        return;
-      }
       req.session.userId = user.id;
-      res.send({user: {name: user.name, email: user.email, id: user.id}});
+      res.redirect("/menu");
     })
-    .catch(e => res.send(e));
+    .catch(e => res.send("Error")); //dont send error info, just a message
 
-  req.session.user_id = database.getIdFromEmail(email);
-  res.redirect("/menu");
+
 });
 
 module.exports = router;

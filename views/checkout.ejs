@@ -1,24 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>Foodie</title>
 
-<head>
-  <title>Foodie</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <meta charset="UTF-8" >
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
 
-  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
-  <link rel="stylesheet" href="/vendor/border-box.css" />
-  <link rel="stylesheet" href="/styles/main.css" />
-  <link rel="stylesheet" href="/styles/layout.css" />
+    <script src="/vendor/jquery-3.0.0.js"></script>
+    <script defer src="/scripts/app.js"></script>
+  </head>
 
-  <script src="/vendor/jquery-3.0.0.js"></script>
-  <script defer src="/scripts/app.js"></script>
-</head>
+  <body>
+    <%- include('partials/_header') %>
+    <h1>Your Cart </h1>
+   
+    <div class="menu_display">
+      <div class="aside"><img class="user" src="ITEM IMAGE" /></div>
+      <div class="menu_info">
+        <p class="item-name">ITEM NAME: Dish1</p>
+        <p class="item-price">ITEM PRICE: $10</p>
+      </div>
+      <input type="button" value="+" class="increment" />
+      <label class="display" data-product-id="" id=""> 3</label>
+      <input type="button" value="-" class="decrement" />
+      <button class="delete" type="button" class="btn btn-success">
+        Delete
+      </button>
+    </div>
 
-<body>
-    <h1>Order Page</h1>
-</body>
+    <div class="menu_display">
+      <div class="aside"><img class="user" src="ITEM IMAGE" /></div>
+      <div class="menu_info">
+        <p class="item-name">ITEM NAME: Dish2</p>
+        <p class="item-price">ITEM PRICE: $20</p>
+      </div>
+      <input type="button" value="+" class="increment" />
+      <label class="display" data-product-id="" id=""> 2</label>
+      <input type="button" value="-" class="decrement" />
+      <button class="delete" type="button" class="btn btn-success">
+        Delete
+      </button>
+    </div>
 
+    <div class="menu_display">
+      <div class="col">
+        <p id="totalprice"><strong>Order Total : $200 </strong></p>
+      </div>
+      <button type="button" class="btn btn-success" id="place-order"  href="/confirmation"  >Place Order</button>
+    </div>
+  </body>
 </html>
