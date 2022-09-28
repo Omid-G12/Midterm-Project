@@ -33,8 +33,8 @@ app.use(express.static('public'));
 // Note: Feel free to replace the example routes below with your own
 const userApiRoutes = require('./routes/users-api');
 const widgetApiRoutes = require('./routes/widgets-api');
-const usersRoutes = require('./routes/users');
-const database = require('./routes/database');
+//const usersRoutes = require('./routes/users');
+//const database = require('./routes/database');
 const orderRoutes = require('./routes/order');
 
 // Mount all resource routes
