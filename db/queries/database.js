@@ -103,14 +103,15 @@ const addOrder =  function(order) {
 };
 
 const getMenuItems = () => {
-  return db.query('SELECT * FROM menu_items;')
+  return db.query(`SELECT * FROM menu_items;`)
     .then(data => {
       return data.rows;
     })
 };
 
-const getOrderItems = () => {
-  return db.query('SELECT * FROM ordered_items;')
+const getOrderItems = (order_id) => {
+  return db.query(`SELECT * FROM ordered_items
+  WHERE order_id = ${order_id};`)
     .then(data => {
       return data.rows;
     })
@@ -120,4 +121,23 @@ const getOrderItems = () => {
     });
 };
 
-module.exports = { getUsers, getUserByEmail, getUserById, getIdFromEmail, createUser, addOrderItem, orderTotal, addOrder, getMenuItems, getOrderItems };
+const removeOrderItems = (menu_item_id) => {
+  return db.query(`DELETE * FROM ordered_items
+  WHERE menu_item_id = ${menu_item_id}
+  RETURNING *;`)
+    .then(data => {
+      return data.rows;
+    });
+};
+
+const updateOrderItems = (menu_item_id, quantity) => {
+  return db.query(`UPDATE ordered_items
+  SET quantity = ${quantity}
+  WHERE menu_item_id = ${menu_item_id}
+  RETURNING *;`)
+    .then(data => {
+      return data.rows;
+    });
+};
+
+module.exports = { getUsers, getUserByEmail, getUserById, getIdFromEmail, createUser, addOrderItem, orderTotal, addOrder, getMenuItems, getOrderItems, removeOrderItems, updateOrderItems };
