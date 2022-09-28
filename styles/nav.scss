@@ -1,8 +1,8 @@
 .navbar {
   height: 70px;
   width: 100%;
-  background-color: #c04304;
-  color: #0410b8;
+  background-color: #9f3805;
+  color: #ffffff;
   position: fixed;
   top: 0;
   display: flex;
@@ -10,8 +10,10 @@
   align-items: center;
 
   .nav-logo {
-    object-position: center;
-    color: #ffff00;
-    font-weight: 600;
+  object-position: center;
+  color: #ffff00;
+  font-weight: 600;
   }
+
+  
 }
