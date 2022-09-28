@@ -75,9 +75,9 @@ router.get("/checkout/:id", (req, res) => {
     return res.redirect("/login");
   }
 
-  const orderItems = getOrderItems();
+  // const orderItems = getOrderItems();
 
-  res.render("checkout", orderItems);
+  res.render("checkout");
 });
 
 router.get("/confirmation/:id", (req, res) => {
