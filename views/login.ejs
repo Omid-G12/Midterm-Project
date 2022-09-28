@@ -15,12 +15,29 @@
 
   <script src="/vendor/jquery-3.0.0.js"></script>
   <script defer src="/scripts/app.js"></script>
-  <script defer src="/scripts/cart.js"></script>
 </head>
 
 <body>
   <%- include('partials/_header') %>
-  <h1 class="index-logo">Welcome to Home Page !</h1>
-    <h2> We make healthy and tasty meals from organic ingredients. </h3>
+  <h2>Please Login here</h2>
+  <main style="margin: 1em">
+    <div class="row">
+    <div class="col-sm-4">
+      <form method="POST" action="/login">
+        <h6>E-mail</h6>
+        <input class="form-control" type="text" name="email" placeholder="Please enter your E-mail" style="width: 300px; ">
+        <h6>Password:</h6>
+        <input class="form-control" type="password" name="password" placeholder="Please enter a password" style="width: 300px;">
+        <br>
+        <button type="submit" class="btn btn-success" value="submit">Login</button>
+      </form>
+    </div>
+  </main>
+
+
+
+
+
 </body>
+
 </html>

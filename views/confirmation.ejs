@@ -18,7 +18,34 @@
 </head>
 
 <body>
-    <h1>Order Confirmed</h1>
+  <%- include('partials/_header') %>
+   
+    <h1>Order Confirmation</h1>
+
+    <div class="menu_display">
+      <div class="aside"><img class="user" src="ITEM IMAGE" /></div>
+      <div class="menu_info">
+        <p class="item-name">ITEM NAME: Dish1</p>
+        <p class="item-price">ITEM PRICE: $10</p>
+      </div>
+      <label class="display" data-product-id="" id="">Quantity: 3</label>
+       
+    </div>
+
+    <div class="menu_display">
+      <div class="aside"><img class="user" src="ITEM IMAGE" /></div>
+      <div class="menu_info">
+        <p class="item-name">ITEM NAME: Dish2</p>
+        <p class="item-price">ITEM PRICE: $20</p>
+      </div>
+      <label class="display" data-product-id="" id="">Quantity: 2</label>
+      </div>
+
+    <div class="menu_display">
+      <div class="col">
+        <p id="totalprice"><strong>Order Total : $200 </strong></p>
+      </div>
+     </div>
 </body>
 
 </html>
