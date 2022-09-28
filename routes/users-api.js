@@ -14,9 +14,7 @@ router.get("/login", (req, res) => {
     return res.redirect("/menu");
   }
 
-  const users = getUsers();
-
-  res.render("login", users);
+  res.render("login");
 });
 
 router.get("/register", (req, res) => {
@@ -24,9 +22,7 @@ router.get("/register", (req, res) => {
     return res.redirect("/menu");
   }
 
-  const users = getUsers();
-
-  res.render("register", users);
+  res.render("register");
 });
 
 const login =  function(email, password) {
@@ -61,7 +57,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/menu", (req, res) => {
-  const menu = getMenuItems();
+  const menu = database.getMenuItems();
 
   if (req.session.user_id) {
     return res.render("menu", menu);
@@ -70,14 +66,19 @@ router.get("/menu", (req, res) => {
     res.redirect("/login");
 });
 
-router.get("/checkout/:id", (req, res) => {
+//POST request to handle the checkout
+//Menu items (ids) needed
+
+router.get("/checkout", (req, res) => {
   if (!req.session.user_id) {
     return res.redirect("/login");
   }
 
-  // const orderItems = getOrderItems();
+  const orderId = req.params.id;
 
-  res.render("checkout");
+  const orderItems = database.getOrderItems(orderId);
+
+  res.render("checkout", orderItems);
 });
 
 router.get("/confirmation/:id", (req, res) => {
