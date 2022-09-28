@@ -52,7 +52,19 @@ app.use('/api/order', orderRoutes);
 
 app.get('/', (req, res) => {
   res.render('index');
-})
+});
+
+app.get("/menu", (req, res) => {
+  res.render("menu");
+});
+
+app.get("/checkout", (req, res) => {
+  res.render("checkout");
+});
+
+app.get("/confirmation", (req, res) => {
+  res.render("confirmation");
+});
 
 app.get("/login", (req, res) => {
   res.render("login");
