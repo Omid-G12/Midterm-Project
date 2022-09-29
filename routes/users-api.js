@@ -67,12 +67,13 @@ router.get("/", (req, res) => {
 });
 
 router.get("/menu", (req, res) => {
-  console.log('cookie line 62', req.session);
   if (req.session.userId) {
     return database.getMenuItems()
     .then (menu => {
       database.getUserById(req.session.userId)
       .then (user => {
+        console.log("menu", menu);
+        console.log("user", user);
         return res.render("menu", { menu, user });
       })
     })
@@ -91,14 +92,19 @@ router.get("/checkout", (req, res) => {
 
   const orderId = req.params.id;
 
-  const orderItems = database.getOrderItems(orderId);
+  return database.getOrderItems(1)
+  .then (order => {
+    database.getUserById(req.session.userId)
+      .then (user => {
+        console.log("order", order);
+        console.log("user", user);
+        return res.render("checkout", { order, user });
+      })
+  });
+});
 
-  return database.getUserById(req.session.userId)
-  .then(user => {
-    return res.render("checkout", { user });
-  })
-
-
+router.post("/checkout", (req, res) => {
+ res.redirect("/checkout");
 });
 
 router.get("/confirmation/:id", (req, res) => {
@@ -129,7 +135,6 @@ router.post("/register", (req, res) => {
     database.createUser(user)
       .then(user => {
         req.session.userId = user.id;
-        console.log('cookie line 114', req.session);
         res.redirect("/menu");
       })
       .catch(e => res.send("Error")); //dont send error info, just a message

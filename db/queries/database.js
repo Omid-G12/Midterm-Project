@@ -110,7 +110,7 @@ const addOrder =  function(order) {
 const getMenuItems = () => {
   return db.query(`SELECT * FROM menu_items;`)
     .then((data) => {
-      return data.rows[0];
+      return data.rows;
     })
 };
 

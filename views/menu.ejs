@@ -51,22 +51,21 @@
             <button class="add-to-cart-<%= item.id %>" type="button" class="btn btn-success">
               Add To Cart
             </button>
-            <% console.log(item);
-            %>
           </div>
         </div>
       </div>
       <% } %>
 
       <div class="col">
-        <button
+        <form method="POST" action="/checkout"><button type="submit" class="btn btn-danger">Ready to checkout</button></form>
+        <!-- <button
           type="submit"
           class="btn btn-success"
           id="place-order"
 
         >
           Ready to checkout
-        </button>
+        </button> -->
       </div>
     </div>
   </body>
