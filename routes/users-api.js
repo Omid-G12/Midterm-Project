@@ -14,8 +14,8 @@ router.get("/login", (req, res) => {
   if (req.session.userId) {
     return res.redirect("/menu");
   }
-  const user = null;
-  res.render("login", {user});
+
+  res.render("login");
 });
 
 
@@ -23,8 +23,8 @@ router.get("/register", (req, res) => {
   if (req.session.userId) {
     return res.redirect("/menu");
   }
-  const user = null;
-  res.render("register", {user});
+
+  res.render("register");
 });
 
 const login =  function(email, password) {
@@ -50,13 +50,6 @@ router.post("/login", (req, res) => {
       res.redirect("/menu");
     })
     .catch(e => res.send('Error'));
-});
-
-router.post("/logout", (req, res) => {
-  const id = req.session.user_id;
-  //res.clearCookie('user_id', id);
-  req.session = null;
-  res.redirect("/login");
 });
 
 router.get("/", (req, res) => {
@@ -90,22 +83,28 @@ router.get("/checkout", (req, res) => {
     return res.redirect("/login");
   }
 
-  const orderId = req.params.id;
-
-  return database.getOrderItems(1)
-  .then (order => {
-    database.getUserById(req.session.userId)
-      .then (user => {
-        console.log("order", order);
-        console.log("user", user);
-        return res.render("checkout", { order, user });
+return database.getOrderItems(1)
+.then (order => {
+  database.getUserById(req.session.userId)
+    .then (user => {
+      const orderedItems = [];
+      Promise.all(order.map(ord => {
+        return database.getMenuItemsById(ord.menu_item_id)
+        .then (menuItem => {
+          ord.menuItem = menuItem;
+          return menuItem;
+        })
+      }))
+      .then (orderedItems => {
+        return res.render("checkout", { order: orderedItems, user });
       })
-  });
+    })
+  })
 });
 
 router.post("/checkout", (req, res) => {
- res.redirect("/checkout");
-});
+  res.redirect("/checkout");
+ });
 
 router.get("/confirmation/:id", (req, res) => {
   if (!req.session.userId) {
@@ -135,6 +134,7 @@ router.post("/register", (req, res) => {
     database.createUser(user)
       .then(user => {
         req.session.userId = user.id;
+        console.log('cookie line 114', req.session);
         res.redirect("/menu");
       })
       .catch(e => res.send("Error")); //dont send error info, just a message
