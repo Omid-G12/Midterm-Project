@@ -1,11 +1,9 @@
 // Client facing scripts here
 
-console.log("yes");
-
 $(document).ready(function() {
-  console.log("ready");
+  let quantity = 0;
   $('.add-to-cart').click(function(){
-    let quantity = $('.quantity').val();
+    quantity += parseInt($('.quantity').val());
     console.log(quantity);
   });
 });

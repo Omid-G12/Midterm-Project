@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/styles/layout.css" />
     <link rel="stylesheet" href="/styles/menu.css" type="text/css" />
     <link rel="stylesheet" href="/styles/checkout.css" type="text/css" />
-   
+
     <script src="/vendor/jquery-3.0.0.js"></script>
     <script defer src="/scripts/app.js"></script>
   </head>
@@ -21,12 +21,13 @@
   <body>
     <%- include('partials/_header') %>
     <h1>Your Cart </h1>
-   
+
+    <% for (let item of order) { %>
     <div class="menu_display">
       <div class="aside"><img class="user" src="/images/menuitem1.jpg" width="100px"  /></div>
       <div class="menu_info">
-        <p class="item-name">Item Name: Dish1</p>
-        <p class="item-price">Item Price: $10</p>
+        <p class="item-name">Item Name: <%= item.name %></p>
+        <p class="item-price">Item Price: $<%= item.price %></p>
       </div>
       <input type="button" value="+" class="increment" />
       <label class="display" data-product-id="" id=""> 3</label>
@@ -38,27 +39,11 @@
         Update
       </button>
     </div>
-
-    <div class="menu_display">
-      <div class="aside"><img class="user" src="/images/menuitem2.jpg" width="100px"  /></div>
-      <div class="menu_info">
-        <p class="item-name">Item Name: Dish2</p>
-        <p class="item-price">Item Price: $20</p>
-      </div>
-      <input type="button" value="+" class="increment" />
-      <label class="display" data-product-id="" id=""> 2</label>
-      <input type="button" value="-" class="decrement" />
-      <button class="delete" type="button" class="btn btn-success">
-        Delete
-      </button>
-      <button class="update" type="button" class="btn btn-success">
-        Update
-      </button>
-    </div>
+    <% } %>
 
     <div class="menu_display">
       <div class="col">
-        <p id="totalprice"><strong><h5>Order Total : $200 </h5> </strong></p>
+        <p id="totalprice"><strong><h5>Order Total : $<%= order.total %> </h5> </strong></p>
       </div>
       <button type="button" class="btn btn-success" id="place-order"  href="/confirmation"  >Place Order</button>
     </div>
