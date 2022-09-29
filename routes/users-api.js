@@ -62,7 +62,7 @@ router.get("/", (req, res) => {
 router.get("/menu", (req, res) => {
   console.log('cookie line 62', req.session);
   if (req.session.userId) {
-    const menu = database.getMenuItems();
+    const menu = { menu: database.getMenuItems() };
     return res.render("menu", menu);
   }
 
