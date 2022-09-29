@@ -62,8 +62,11 @@ router.get("/", (req, res) => {
 router.get("/menu", (req, res) => {
   console.log('cookie line 62', req.session);
   if (req.session.userId) {
-    const menu = { menu: database.getMenuItems() };
-    return res.render("menu", menu);
+    return database.getMenuItems()
+    .then (data => {
+      console.log(data);
+      return res.render("menu", { menu: data });
+    })
   }
 
     res.redirect("/login");

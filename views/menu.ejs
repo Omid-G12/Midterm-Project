@@ -27,15 +27,16 @@
     <h1>Menu Page</h1>
 
     <div class="menu">
+      <% for (let item of menu) { %>
       <div class="menu_display">
-        <img class="user" src="/images/menuitem1.jpg" width="100px" />
+        <img class="user" src= <%= item.image_url %> width="100px" />
         <div class="menu-info-and-button">
           <div class="menu_info">
-            <p class="item-name">Item Name: Item 1</p>
+            <p class="item-name">Item Name: <%= item.name %></p>
             <p class="item-description">
-              Item description: This is the most special dish of the restaurant
+              Item description: <%= item.description %>
             </p>
-            <p class="item-price">Item Price : $ 10</p>
+            <p class="item-price">Item Price : $ <%= item.price %></p>
           </div>
 
           <div class="menu_change">
@@ -48,6 +49,7 @@
           </div>
         </div>
       </div>
+      <% } %>
 
       <div class="menu_display">
         <img class="user" src="/images/menuitem2.jpg" width="100px" />
@@ -86,4 +88,3 @@
 </html>
 
 
- 
