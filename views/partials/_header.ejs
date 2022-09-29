@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
-    
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-    
+
     <script src="https://kit.fontawesome.com/a4c9bc2fa3.js" crossorigin="anonymous"></script>
 
     <header>
@@ -20,7 +20,7 @@
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navbar">
       </button>
-      
+
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
         <ul class="navbar-nav mr-auto">
@@ -33,21 +33,29 @@
           <li class="nav-item">
             <a class="nav-link" href="/checkout">Checkout</a>
           </li>
-          
+
       </div>
 
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ml-auto">
-          
-          <a class="nav-link" href="/login">Login</a>
-          <a class="nav-link" href="/register">Register</a>
+
+          <% if(user){ %>
+            <a class="nav-item"><form method="post" action="/logout">
+              Logged In As: <%= user.email%>!
+
+              <button type="submit" class="btn btn-secondary">Logout</button>
+            </form></a>
+          <% } else{ %>
+            <a class="nav-link" href="/login">Login</a>
+            <a class="nav-link" href="/register">Register</a>
+          <% } %>
 
            <% /*  %>
           <form method="POST" action="/logout">
             <span class="nav-link" name="username">Username: ABC</span>
             <button type="submit" class="nav-item" name="logout">Logout</button>
           </form>
-            <% */ %> 
+            <% */ %>
         </div>
       </div>
 

@@ -14,8 +14,8 @@ router.get("/login", (req, res) => {
   if (req.session.userId) {
     return res.redirect("/menu");
   }
-
-  res.render("login");
+  const user = null;
+  res.render("login", {user});
 });
 
 
@@ -23,8 +23,8 @@ router.get("/register", (req, res) => {
   if (req.session.userId) {
     return res.redirect("/menu");
   }
-
-  res.render("register");
+  const user = null;
+  res.render("register", {user});
 });
 
 const login =  function(email, password) {
@@ -52,6 +52,13 @@ router.post("/login", (req, res) => {
     .catch(e => res.send('Error'));
 });
 
+router.post("/logout", (req, res) => {
+  const id = req.session.user_id;
+  //res.clearCookie('user_id', id);
+  req.session = null;
+  res.redirect("/login");
+});
+
 router.get("/", (req, res) => {
   if (req.session.userId) {
     return res.redirect("/menu");
@@ -63,9 +70,11 @@ router.get("/menu", (req, res) => {
   console.log('cookie line 62', req.session);
   if (req.session.userId) {
     return database.getMenuItems()
-    .then (data => {
-      console.log(data);
-      return res.render("menu", { menu: data });
+    .then (menu => {
+      database.getUserById(req.session.userId)
+      .then (user => {
+        return res.render("menu", { menu, user });
+      })
     })
   }
 
@@ -84,7 +93,12 @@ router.get("/checkout", (req, res) => {
 
   const orderItems = database.getOrderItems(orderId);
 
-  res.render("checkout", orderItems);
+  return database.getUserById(req.session.userId)
+  .then(user => {
+    return res.render("checkout", { user });
+  })
+
+
 });
 
 router.get("/confirmation/:id", (req, res) => {
