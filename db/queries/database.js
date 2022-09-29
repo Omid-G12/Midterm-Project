@@ -74,14 +74,14 @@ const addOrderItem =  function(order_item) {
     });
 };
 
-const orderTotal =  function() {
+const orderTotal =  function(order_id) {
   return db
     .query(`
       SELECT sum(menu_items.price * ordered_items.quantity) as total
       FROM menu_items
       JOIN ordered_items ON menu_items.id = ordered_items.menu_item_id
-      JOIN orders ON ordered_items.order_id = orders.id
-      GROUP BY orders.id;`)
+      WHERE order_id = ${order_id}
+      GROUP BY order_id;`)
     .then((result) => {
       console.log(result.rows[0]);
       return result.rows[0];
@@ -152,4 +152,13 @@ const updateOrderItems = (menu_item_id, quantity) => {
     });
 };
 
-module.exports = { getUsers, getUserByEmail, getUserById, getIdFromEmail, createUser, addOrderItem, orderTotal, addOrder, getMenuItems, getMenuItemsById, getOrderItems, removeOrderItems, updateOrderItems };
+const getCheckout = (order_id) => {
+  return db.query(`SELECT menu_items.name as name, menu_items.price as price, ordered_items.quantity as quantity, menu_items.image_url as image, SUM(menu_items.price * ordered_items.quantity) as item_total
+  FROM menu_items
+  JOIN ordered_items ON menu_items.id = menu_item_id
+  WHERE ordered_items.order_id = ${order_id}
+  GROUP BY menu_items.name, menu_items.price, ordered_items.quantity, menu_items.image_url, menu_items.id
+  ORDER BY menu_items.id;`)
+};
+
+module.exports = { getUsers, getUserByEmail, getUserById, getIdFromEmail, createUser, addOrderItem, orderTotal, addOrder, getMenuItems, getMenuItemsById, getOrderItems, removeOrderItems, updateOrderItems, getCheckout };
