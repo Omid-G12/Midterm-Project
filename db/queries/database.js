@@ -2,13 +2,13 @@ const db = require('../connection');
 
 const getUsers = () => {
   return db.query('SELECT * FROM users;')
-    .then(data => {
+    .then((data) => {
       return data.rows;
     });
 };
 
 const getUserByEmail = (email) => {
-  return db.query('SELECT * FROM users Where email = $1;', [email])
+  return db.query('SELECT * FROM users Where email = $1;', [email || null])
     .then(data => {
       return data.rows[0];
     })
@@ -20,7 +20,7 @@ const getUserByEmail = (email) => {
 
 const getUserById = (id) => {
   return db.query('SELECT * FROM users Where id = $1;', [id || null])
-    .then(data => {
+    .then((data) => {
       return data.rows[0];
     })
     .catch((err) => {
@@ -31,7 +31,7 @@ const getUserById = (id) => {
 
 const getIdFromEmail = (email) => {
   return db.query('SELECT id FROM users Where email = $1;', [email || null])
-    .then(data => {
+    .then((data) => {
       return data.rows[0];
     })
     .catch((err) => {
@@ -109,7 +109,7 @@ const addOrder =  function(order) {
 
 const getMenuItems = () => {
   return db.query(`SELECT * FROM menu_items;`)
-    .then(data => {
+    .then((data) => {
       return data.rows;
     })
 };
@@ -117,7 +117,7 @@ const getMenuItems = () => {
 const getOrderItems = (order_id) => {
   return db.query(`SELECT * FROM ordered_items
   WHERE order_id = ${order_id};`)
-    .then(data => {
+    .then((data) => {
       return data.rows;
     })
     .catch((err) => {
@@ -130,7 +130,7 @@ const removeOrderItems = (menu_item_id) => {
   return db.query(`DELETE * FROM ordered_items
   WHERE menu_item_id = ${menu_item_id}
   RETURNING *;`)
-    .then(data => {
+    .then((data) => {
       return data.rows;
     });
 };
@@ -140,7 +140,7 @@ const updateOrderItems = (menu_item_id, quantity) => {
   SET quantity = ${quantity}
   WHERE menu_item_id = ${menu_item_id}
   RETURNING *;`)
-    .then(data => {
+    .then((data) => {
       return data.rows;
     });
 };
