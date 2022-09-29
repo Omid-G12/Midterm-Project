@@ -21,7 +21,8 @@
   <body>
     <%- include('partials/_header') %>
     <h1>Your Cart </h1>
-   
+    <form action="/checkout" method="POST">
+      
     <div class="menu_display">
       <div class="aside"><img class="user" src="/images/menuitem1.jpg" width="100px"  /></div>
       <div class="menu_info">
@@ -60,9 +61,9 @@
       <div class="col">
         <p id="totalprice"><strong><h5>Order Total : $200 </h5> </strong></p>
       </div>
-      <button type="button" class="btn btn-success" id="place-order"  href="/confirmation"  >Place Order</button>
+      <button type="button" class="btn btn-success" id="place-order" >Place Order</button>
     </div>
 
-
+ </form>
   </body>
 </html>
