@@ -60,7 +60,7 @@ const createUser =  function(user) {
 const addOrderItem =  function(order_item) {
   return db
     .query(
-      `INSERT INTO order_items (order_id, menu_item_id, user_id, quantity)
+      `INSERT INTO ordered_items (order_id, menu_item_id, user_id, quantity)
       VALUES ($1, $2, $3, $4)
       RETURNING *;`,
       [order_item.order_id, order_item.menu_item_id, order_item.user_id, order_item.quantity])
@@ -114,6 +114,13 @@ const getMenuItems = () => {
     })
 };
 
+const getMenuItemsById = (id) => {
+  return db.query(`SELECT * FROM menu_items WHERE id = ${id};`)
+    .then((data) => {
+      return data.rows[0];
+    })
+};
+
 const getOrderItems = (order_id) => {
   return db.query(`SELECT * FROM ordered_items
   WHERE order_id = ${order_id};`)
@@ -145,4 +152,4 @@ const updateOrderItems = (menu_item_id, quantity) => {
     });
 };
 
-module.exports = { getUsers, getUserByEmail, getUserById, getIdFromEmail, createUser, addOrderItem, orderTotal, addOrder, getMenuItems, getOrderItems, removeOrderItems, updateOrderItems };
+module.exports = { getUsers, getUserByEmail, getUserById, getIdFromEmail, createUser, addOrderItem, orderTotal, addOrder, getMenuItems, getMenuItemsById, getOrderItems, removeOrderItems, updateOrderItems };

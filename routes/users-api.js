@@ -14,8 +14,8 @@ router.get("/login", (req, res) => {
   if (req.session.userId) {
     return res.redirect("/menu");
   }
-
-  res.render("login");
+  const user = null;
+  res.render("login", {user});
 });
 
 
@@ -23,8 +23,8 @@ router.get("/register", (req, res) => {
   if (req.session.userId) {
     return res.redirect("/menu");
   }
-
-  res.render("register");
+  const user = null;
+  res.render("register", {user});
 });
 
 const login =  function(email, password) {
@@ -52,6 +52,13 @@ router.post("/login", (req, res) => {
     .catch(e => res.send('Error'));
 });
 
+router.post("/logout", (req, res) => {
+  const id = req.session.user_id;
+  //res.clearCookie('user_id', id);
+  req.session = null;
+  res.redirect("/login");
+});
+
 router.get("/", (req, res) => {
   if (req.session.userId) {
     return res.redirect("/menu");
@@ -60,12 +67,15 @@ router.get("/", (req, res) => {
 });
 
 router.get("/menu", (req, res) => {
-  console.log('cookie line 62', req.session);
   if (req.session.userId) {
     return database.getMenuItems()
-    .then (data => {
-      console.log(data);
-      return res.render("menu", { menu: data });
+    .then (menu => {
+      database.getUserById(req.session.userId)
+      .then (user => {
+        console.log("menu", menu);
+        console.log("user", user);
+        return res.render("menu", { menu, user });
+      })
     })
   }
 
@@ -83,9 +93,13 @@ router.get("/checkout", (req, res) => {
   const orderId = req.params.id;
 
   return database.getOrderItems(1)
-  .then (data => {
-    console.log(data);
-    return res.render("checkout", { order: data});
+  .then (order => {
+    database.getUserById(req.session.userId)
+      .then (user => {
+        console.log("order", order);
+        console.log("user", user);
+        return res.render("checkout", { order, user });
+      })
   });
 });
 
@@ -121,7 +135,6 @@ router.post("/register", (req, res) => {
     database.createUser(user)
       .then(user => {
         req.session.userId = user.id;
-        console.log('cookie line 114', req.session);
         res.redirect("/menu");
       })
       .catch(e => res.send("Error")); //dont send error info, just a message

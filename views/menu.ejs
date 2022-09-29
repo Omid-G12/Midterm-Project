@@ -20,10 +20,9 @@
       integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
       crossorigin="anonymous"
     />
-
-    <script src="/vendor/jquery-3.0.0.js"></script>
-    <script defer src="/scripts/app.js"></script>
-    <script defer src="/scripts/cart.js"></script>
+    <!-- App JS-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
 
   </head>
 
@@ -41,20 +40,17 @@
             <p class="item-description">
               Item description: <%= item.description %>
             </p>
-            <p class="item-price">Item Price : $ <%= item.price %></p>
+            <p class="item-price">Item Price : $ <%= (item.price/100).toFixed(2) %></p>
           </div>
 
           <div class="menu_change">
-            <input type="number" name="increment" class = "<%= item.name%> quantity">
-            <button class="add-to-cart btn btn-success" type="button">
+            <input type="number" name="increment" class="quantity-<%= item.id %>">
+            <!--<input type="button" value="+" class="increment" onclick="" />
+            <label class="display">1</label>
+            <input type="button" value="-" class="decrement" onclick="" /> -->
+            <button class="add-to-cart-<%= item.id %>" type="button" class="btn btn-success">
               Add To Cart
             </button>
-            <!-- <input type="button" value="+" class="increment" onclick="" />
-            <label class="display">1</label>
-            <input type="button" value="-" class="decrement" onclick="" />
-            <button class="add-to-cart" type="button" class="btn btn-success">
-              Add To Cart
-            </button> -->
           </div>
         </div>
       </div>
@@ -66,7 +62,7 @@
           type="submit"
           class="btn btn-success"
           id="place-order"
-          href="/checkout"
+
         >
           Ready to checkout
         </button> -->
