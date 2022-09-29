@@ -82,9 +82,15 @@ router.get("/checkout", (req, res) => {
 
   const orderId = req.params.id;
 
-  const orderItems = database.getOrderItems(orderId);
+  return database.getOrderItems(1)
+  .then (data => {
+    console.log(data);
+    return res.render("checkout", { order: data});
+  });
+});
 
-  res.render("checkout", orderItems);
+router.post("/checkout", (req, res) => {
+ res.redirect("/checkout");
 });
 
 router.get("/confirmation/:id", (req, res) => {
