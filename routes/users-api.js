@@ -7,18 +7,20 @@
 
 const express = require('express');
 const router  = express.Router();
-const userQueries = require('../db/queries/database');
+const database = require('../db/queries/database');
+const bcrypt = require('bcrypt');
 
 router.get("/login", (req, res) => {
-  if (req.session.user_id) {
+  if (req.session.userId) {
     return res.redirect("/menu");
   }
 
   res.render("login");
 });
 
+
 router.get("/register", (req, res) => {
-  if (req.session.user_id) {
+  if (req.session.userId) {
     return res.redirect("/menu");
   }
 
@@ -27,7 +29,7 @@ router.get("/register", (req, res) => {
 
 const login =  function(email, password) {
   return database.getUserByEmail(email)
-  .then(user => {
+  .then((user) => {
     if (bcrypt.compareSync(password, user.password)) {
       return user;
     }
@@ -36,6 +38,7 @@ const login =  function(email, password) {
 }
 
 router.post("/login", (req, res) => {
+  console.log(req.body);
   const {email, password} = req.body;
   login(email, password)
     .then(user => {
@@ -44,22 +47,22 @@ router.post("/login", (req, res) => {
         return;
       }
       req.session.userId = user.id;
-      res.send({user: {name: user.name, email: user.email, id: user.id}});
+      res.redirect("/menu");
     })
     .catch(e => res.send('Error'));
 });
 
 router.get("/", (req, res) => {
-  if (req.session.user_id) {
+  if (req.session.userId) {
     return res.redirect("/menu");
   }
     res.redirect("/login");
 });
 
 router.get("/menu", (req, res) => {
-  const menu = database.getMenuItems();
-
-  if (req.session.user_id) {
+  console.log('cookie line 62', req.session);
+  if (req.session.userId) {
+    const menu = database.getMenuItems();
     return res.render("menu", menu);
   }
 
@@ -70,7 +73,7 @@ router.get("/menu", (req, res) => {
 //Menu items (ids) needed
 
 router.get("/checkout", (req, res) => {
-  if (!req.session.user_id) {
+  if (!req.session.userId) {
     return res.redirect("/login");
   }
 
@@ -82,7 +85,7 @@ router.get("/checkout", (req, res) => {
 });
 
 router.get("/confirmation/:id", (req, res) => {
-  if (!req.session.user_id) {
+  if (!req.session.userId) {
     return res.redirect("/login");
   }
 
@@ -96,20 +99,27 @@ router.post("/register", (req, res) => {
     return res.status(400).send("Error: input fields cannot be empty.");
   }
 
-  if (getUserByEmail(email) !== null) {
-    return res.send({error: "email already exists"});
-  }
+  database.getUserByEmail(email)
+  .then(data => {
+    if (data !== undefined) {
+      return res.send({error: "email already exists"});
+    }
 
-  const hashedPassword = bcrypt.hashSync(req.body.password, 10);
-  const user = {name, phone_number, email, password: hashedPassword};
+    const hashedPassword = bcrypt.hashSync(req.body.password, 12);
+    const user = {name, phone_number, email, password: hashedPassword};
 
 
-  createUser(user)
-    .then(user => {
-      req.session.userId = user.id;
-      res.redirect("/menu");
-    })
-    .catch(e => res.send("Error")); //dont send error info, just a message
+    database.createUser(user)
+      .then(user => {
+        req.session.userId = user.id;
+        console.log('cookie line 114', req.session);
+        res.redirect("/menu");
+      })
+      .catch(e => res.send("Error")); //dont send error info, just a message
+  });
+
+
+
 
 
 });
