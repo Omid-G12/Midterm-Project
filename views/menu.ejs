@@ -20,6 +20,11 @@
       integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
       crossorigin="anonymous"
     />
+
+    <script src="/vendor/jquery-3.0.0.js"></script>
+    <script defer src="/scripts/app.js"></script>
+    <script defer src="/scripts/cart.js"></script>
+
   </head>
 
   <body>
@@ -40,12 +45,16 @@
           </div>
 
           <div class="menu_change">
-            <input type="button" value="+" class="increment" onclick="" />
+            <input type="number" name="increment" class = "<%= item.name%> quantity">
+            <button class="add-to-cart btn btn-success" type="button">
+              Add To Cart
+            </button>
+            <!-- <input type="button" value="+" class="increment" onclick="" />
             <label class="display">1</label>
             <input type="button" value="-" class="decrement" onclick="" />
             <button class="add-to-cart" type="button" class="btn btn-success">
               Add To Cart
-            </button>
+            </button> -->
           </div>
         </div>
       </div>
