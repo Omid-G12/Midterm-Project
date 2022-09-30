@@ -37,7 +37,7 @@ router.post ("/", (req, res) => {
       database.addOrderItem(orderItem)
       .then (data => {
         console.log('added to order_items');
-        res.redirect("/checkout");
+        res.redirect("/checkout/:q");
       })
     })
   }
