@@ -14,8 +14,8 @@ router.get("/login", (req, res) => {
   if (req.session.userId) {
     return res.redirect("/menu");
   }
-
-  res.render("login");
+  const user = null;
+  res.render("login", {user});
 });
 
 
@@ -23,8 +23,8 @@ router.get("/register", (req, res) => {
   if (req.session.userId) {
     return res.redirect("/menu");
   }
-
-  res.render("register");
+  const user = null;
+  res.render("register", {user});
 });
 
 const login =  function(email, password) {
@@ -54,7 +54,11 @@ router.post("/login", (req, res) => {
 
 router.get("/", (req, res) => {
   if (req.session.userId) {
-    return res.redirect("/menu");
+    database.getUserById(req.session.userId)
+    .then(user => {
+      return res.render("/menu", user);
+    })
+
   }
     res.redirect("/login");
 });
@@ -102,9 +106,9 @@ return database.getOrderItems(1)
   })
 });
 
-// router.post("/checkout", (req, res) => {
-//   res.redirect("/checkout");
-//  });
+router.post("/checkout", (req, res) => {
+  res.redirect("/checkout");
+ });
 
 router.get("/confirmation/:id", (req, res) => {
   if (!req.session.userId) {
@@ -139,11 +143,13 @@ router.post("/register", (req, res) => {
       })
       .catch(e => res.send("Error")); //dont send error info, just a message
   });
+});
 
-
-
-
-
+router.post("/logout", (req, res) => {
+  const id = req.session.user_id;
+  //res.clearCookie('user_id', id);
+  req.session = null;
+  res.redirect("/");
 });
 
 module.exports = router;
