@@ -39,7 +39,9 @@
       <div class="col">
         <p id="totalprice"><strong><h5>Order Total : $<%= orderTotal.total/100 %> </h5> </strong></p>
       </div>
-      <button type="button" class="btn btn-success" id="place-order"  href="/confirmation"  >Place Order</button>
+      <form action="/confirmation" method="post">
+        <button class="btn btn-danger" name="order_id" value= "<%= order_id.orderID %>" >Place Order</button>
+    </form>
     </div>
 
 

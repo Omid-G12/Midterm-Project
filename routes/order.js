@@ -18,16 +18,12 @@ router.get ("/allmenuitems", (req, res) => {
 });
 
 router.post ("/", (req, res) => {
-  console.log('1111111111111');
-  console.log("req.body", req.body);
   const items = [];
   for (let i in req.body) {
     const object = {"id": parseInt(i), "quantity": parseInt(req.body[i])};
     items.push(object);
   }
-  console.log("items", items);
-  console.log("req.body", req.body);
-  const q = Math.floor(Math.random() * 1000);
+  const q = Math.floor(Math.random() * 100000);
   if (!pastNumbers.includes(q)) {
     Promise.all(items.map(itm => {
       return database.getMenuItemsById(itm.id)
@@ -39,7 +35,6 @@ router.post ("/", (req, res) => {
           user_id: req.session.userId,
           quantity: itm.quantity
         }
-        console.log("1111", orderItem);
         database.addOrderItem(orderItem)
         // .then (data => {
         //   console.log("data", data);
@@ -50,7 +45,6 @@ router.post ("/", (req, res) => {
     }))
     .then (response => {
       pastNumbers.push(q);
-      console.log("end");
       return res.redirect(`/checkout/${q}`);
     })
   } else {

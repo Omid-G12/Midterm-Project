@@ -35,5 +35,6 @@ $(document).ready(function() {
     //$.ajax('/api/order/allmenuitems')
     console.log("5555555");
   })
+
 });
 

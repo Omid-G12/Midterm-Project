@@ -78,13 +78,36 @@ router.get("/menu", (req, res) => {
 //POST request to handle the checkout
 //Menu items (ids) needed
 
+router.post ("/confirmation", (req, res) => {
+  const orderId = req.body.order_id;
+
+  return res.redirect(`/confirmation/${orderId}`);
+
+});
+
+router.get("/confirmation/:id", (req, res) => {
+  const orderID = req.params.id;
+  const order_id = { orderID };
+
+  return database.getUserById(req.session.userId)
+  .then (user => {
+    database.getCheckout(req.params.id)
+    .then (orderInfo => {
+      database.orderTotal(req.params.id)
+      .then (orderTotal => {
+        return res.render("confirmation", { order: orderInfo.rows, user, orderTotal, order_id});
+      })
+    })
+  })
+});
+
 router.get("/checkout/:id", (req, res) => {
-  console.log("req.params.id", req.params.id);
   if (!req.session.userId) {
     return res.redirect("/login");
   }
-console.log("req.params", req.params);
-console.log("req.body", req.body);
+
+  const orderID = req.params.id;
+  const order_id = { orderID };
 
 return database.getUserById(req.session.userId)
 .then (user => {
@@ -92,7 +115,7 @@ return database.getUserById(req.session.userId)
   .then (orderInfo => {
     database.orderTotal(req.params.id)
     .then (orderTotal => {
-      res.render("checkout", { order: orderInfo.rows, user, orderTotal});
+      return res.render("checkout", { order: orderInfo.rows, user, orderTotal, order_id});
     })
   })
 })
