@@ -23,31 +23,25 @@
     <h1>Your Cart </h1>
 
     <% for (let item of order) { %>
+      <% if (item.quantity > 0 ) { %>
     <div class="menu_display">
-      <div class="aside"><img class="user" src="/images/menuitem1.jpg" width="100px"  /></div>
+      <img class="user" src="<%= item.image %>" width="80px" />
       <div class="menu_info">
-        <p class="item-name">Item Name: <%= item.name %></p>
-        <p class="item-price">Item Price: $<%= item.price %></p>
+        <p class="item-name">Name: <%= item.name %></p>
+        <p class="item-price">Price: $<%= item.price/100 %></p>
+        <p class="item-quantity">Quantity: <%= item.quantity %></p>
       </div>
-      <input type="button" value="+" class="increment" />
-      <label class="display" data-product-id="" id=""> 3</label>
-      <input type="button" value="-" class="decrement" />
-      <button class="delete" type="button" class="btn btn-success">
-        Delete
-      </button>
-      <button class="update" type="button" class="btn btn-success">
-        Update
-      </button>
     </div>
+    <% } %>
     <% } %>
 
     <div class="menu_display">
       <div class="col">
-        <p id="totalprice"><strong><h5>Order Total : $<%= order.total %> </h5> </strong></p>
+        <p id="totalprice"><strong><h5>Order Total : $<%= orderTotal.total/100 %> </h5> </strong></p>
       </div>
-      <button type="button" class="btn btn-success" id="place-order" >Place Order</button>
+      <button type="button" class="btn btn-success" id="place-order"  href="/confirmation"  >Place Order</button>
     </div>
 
- </form>
+
   </body>
 </html>
