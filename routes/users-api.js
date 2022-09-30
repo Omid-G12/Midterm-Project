@@ -95,6 +95,27 @@ router.get("/confirmation/:id", (req, res) => {
     .then (orderInfo => {
       database.orderTotal(req.params.id)
       .then (orderTotal => {
+        var sid = "AC4541c09fae3ea618a90edf8ca13b8063";
+        var auth_token = "bc8d2888026df8b97deb22fd515c1a3d";
+        var client = require("twilio")(sid, auth_token);
+
+   console.log("print sid no."+sid);
+
+
+  client.messages
+    .create({
+      from: "+16672222947",
+      to: "+17785121357",
+     // body: " Your order is placed successfully! You will receive an SMS with pickup time. ",
+     // body: " Your order is placed and will be ready in 30 mintues",
+      body: " Your order will be ready to pickup at 1:00 PM on 30th September 2022",
+    })
+
+
+    .then(function(res) {console.log(" Message is sent " )})
+    .catch(function(err)  {
+      console.log(err);
+    });
         return res.render("confirmation", { order: orderInfo.rows, user, orderTotal, order_id});
       })
     })
