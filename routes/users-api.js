@@ -54,11 +54,7 @@ router.post("/login", (req, res) => {
 
 router.get("/", (req, res) => {
   if (req.session.userId) {
-    database.getUserById(req.session.userId)
-    .then(user => {
-      return res.render("/menu", user);
-    })
-
+    return res.redirect("/menu");
   }
     res.redirect("/login");
 });
@@ -82,33 +78,29 @@ router.get("/menu", (req, res) => {
 //POST request to handle the checkout
 //Menu items (ids) needed
 
-router.get("/checkout", (req, res) => {
+router.get("/checkout/:id", (req, res) => {
+  console.log("req.params.id", req.params.id);
   if (!req.session.userId) {
     return res.redirect("/login");
   }
+console.log("req.params", req.params);
+console.log("req.body", req.body);
 
-return database.getOrderItems(1)
-.then (order => {
-  database.getUserById(req.session.userId)
-    .then (user => {
-      const orderedItems = [];
-      Promise.all(order.map(ord => {
-        return database.getMenuItemsById(ord.menu_item_id)
-        .then (menuItem => {
-          ord.menuItem = menuItem;
-          return menuItem;
-        })
-      }))
-      .then (orderedItems => {
-        return res.render("checkout", { order: orderedItems, user });
-      })
+return database.getUserById(req.session.userId)
+.then (user => {
+  database.getCheckout(req.params.id)
+  .then (orderInfo => {
+    database.orderTotal(req.params.id)
+    .then (orderTotal => {
+      res.render("checkout", { order: orderInfo.rows, user, orderTotal});
     })
   })
+})
 });
 
-router.post("/checkout", (req, res) => {
-  res.redirect("/checkout");
- });
+// router.post("/checkout", (req, res) => {
+//   res.redirect("/checkout");
+//  });
 
 router.get("/confirmation/:id", (req, res) => {
   if (!req.session.userId) {
@@ -143,13 +135,13 @@ router.post("/register", (req, res) => {
       })
       .catch(e => res.send("Error")); //dont send error info, just a message
   });
-});
+  });
 
-router.post("/logout", (req, res) => {
-  const id = req.session.user_id;
-  //res.clearCookie('user_id', id);
-  req.session = null;
-  res.redirect("/");
-});
+  router.post("/logout", (req, res) => {
+    const id = req.session.user_id;
+    //res.clearCookie('user_id', id);
+    req.session = null;
+    res.redirect("/login");
+  });
 
 module.exports = router;
