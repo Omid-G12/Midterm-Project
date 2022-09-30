@@ -102,9 +102,9 @@ return database.getOrderItems(1)
   })
 });
 
-router.post("/checkout", (req, res) => {
-  res.redirect("/checkout");
- });
+// router.post("/checkout", (req, res) => {
+//   res.redirect("/checkout");
+//  });
 
 router.get("/confirmation/:id", (req, res) => {
   if (!req.session.userId) {

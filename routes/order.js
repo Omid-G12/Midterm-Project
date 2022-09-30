@@ -20,6 +20,7 @@ router.get ("/allmenuitems", (req, res) => {
 router.post ("/", (req, res) => {
   //console.log('test', req.body.items);
   const items = req.body.items;
+  console.log("req.body", req.body);
 
   for (let item of items) {
     console.log(item);
@@ -36,6 +37,7 @@ router.post ("/", (req, res) => {
       database.addOrderItem(orderItem)
       .then (data => {
         console.log('added to order_items');
+        res.redirect("/checkout");
       })
     })
   }

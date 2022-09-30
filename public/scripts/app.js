@@ -30,7 +30,7 @@ $(document).ready(function() {
   })
 
   $('#place-order').click( () => {
-    console.log(ordered_items);
+    console.log("ordered items:", ordered_items);
     //const test = getMenuItems();
     //$.ajax('/api/order/allmenuitems')
     $.ajax('/api/order', {
