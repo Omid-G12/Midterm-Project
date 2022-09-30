@@ -33,10 +33,7 @@ $(document).ready(function() {
     console.log("ordered items:", ordered_items);
     //const test = getMenuItems();
     //$.ajax('/api/order/allmenuitems')
-    $.ajax('/api/order', {
-      method: 'post',
-      data: {items: ordered_items},
-    })
-
+    console.log("5555555");
   })
 });
+
