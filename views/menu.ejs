@@ -29,6 +29,7 @@
   <body>
     <%- include('partials/_header') %>
     <h1>Menu Page</h1>
+    <form action="/menu" method="POST">
 
     <div class="menu">
       <% for (let item of menu) { %>
@@ -64,10 +65,13 @@
           id="place-order"
 
         >
+
           Ready to checkout
         </button> -->
       </div>
+
     </div>
+    </form>
   </body>
 </html>
 

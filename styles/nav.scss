@@ -10,10 +10,59 @@
   align-items: center;
 
   .nav-logo {
-  object-position: center;
-  color: #ffff00;
-  font-weight: 600;
+    object-position: center;
+    color: #ffff00;
+    font-weight: 300;
   }
 
-  
+  .nav-elements {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    list-style: none;
+    padding: 0;
+
+    li {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  .nav-button {
+    width: 7vw;
+    height: auto;
+    text-align: center;
+
+    &:hover {
+      border: 1px solid rgb(6, 161, 84);
+      text-decoration: none;
+    }
+  }
+
+  .nav-elem {
+    font-size: 4vw;
+    font-weight: 300;
+    text-align: center;
+    color: #f5f5dc;
+    margin: 4vh 2vw;
+    padding: 10px;
+  }
+}
+
+.nav-social {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.nav-social {
+  font-size: 3vw;
+  padding: 10px;
+}
+
+.nav-link {
+  font-size: 2vw;
+  font-weight: 300;
+  margin-left: 10px;
 }
