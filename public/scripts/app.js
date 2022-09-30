@@ -33,10 +33,21 @@ $(document).ready(function() {
     console.log("ordered items:", ordered_items);
     //const test = getMenuItems();
     //$.ajax('/api/order/allmenuitems')
-    $.ajax('/api/order', {
-      method: 'post',
-      data: {items: ordered_items},
-    })
+    console.log("5555555");
+    // $.ajax('/api/order', {
+    //   method: 'post',
+    //   data: {items: ordered_items},
+    //   success: function(data, textStatus) {
+    //     if (data.redirect) {
+    //         // data.redirect contains the string URL to redirect to
+    //         window.location.href = data.redirect;
+    //     } else {
+    //         // data.form contains the HTML for the replacement form
+    //         // $("#myform").replaceWith(data.form);
+    //     }
+    // }
+    // })
 
   })
 });
+

@@ -18,29 +18,41 @@ router.get ("/allmenuitems", (req, res) => {
 });
 
 router.post ("/", (req, res) => {
-  //console.log('test', req.body.items);
-  const items = req.body.items;
-  const q = Math.floor(Math.random() * 100);
+  console.log('1111111111111');
+  console.log("req.body", req.body);
+  const items = [];
+  for (let i in req.body) {
+    const object = {"id": parseInt(i), "quantity": parseInt(req.body[i])};
+    items.push(object);
+  }
+  console.log("items", items);
+  console.log("req.body", req.body);
+  const q = Math.floor(Math.random() * 1000);
   if (!pastNumbers.includes(q)) {
-    for (let item of items) {
-        console.log(item);
-        database.getMenuItemsById(item.id)
-        .then (data => {
-          //console.log(data);
-          const orderItem = {
-            order_id: q,
-            menu_item_id: data.id,
-            user_id: req.session.userId,
-            quantity: item.quantity
-          }
-          console.log(orderItem);
-          database.addOrderItem(orderItem)
-          .then (data => {
-            console.log('added to order_items');
-          })
-        })
-      }
-    pastNumbers.push(q);
+    Promise.all(items.map(itm => {
+      return database.getMenuItemsById(itm.id)
+      .then (data => {
+        //console.log(data);
+        const orderItem = {
+          order_id: q,
+          menu_item_id: data.id,
+          user_id: req.session.userId,
+          quantity: itm.quantity
+        }
+        console.log("1111", orderItem);
+        database.addOrderItem(orderItem)
+        // .then (data => {
+        //   console.log("data", data);
+        //   console.log('added to order_items');
+        //
+        // })
+      })
+    }))
+    .then (response => {
+      pastNumbers.push(q);
+      console.log("end");
+      return res.redirect(`/checkout/${q}`);
+    })
   } else {
     q += 1;
   }

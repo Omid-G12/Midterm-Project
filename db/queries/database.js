@@ -161,4 +161,11 @@ const getCheckout = (order_id) => {
   ORDER BY menu_items.id;`)
 };
 
-module.exports = { getUsers, getUserByEmail, getUserById, getIdFromEmail, createUser, addOrderItem, orderTotal, addOrder, getMenuItems, getMenuItemsById, getOrderItems, removeOrderItems, updateOrderItems, getCheckout };
+const getOrderInfo = (order_id) => {
+  return db.query(`SELECT * FROM ordered_items WHERE order_id = ${order_id};`)
+    .then((data) => {
+      return data.rows;
+    })
+}
+
+module.exports = { getUsers, getUserByEmail, getUserById, getIdFromEmail, createUser, addOrderItem, orderTotal, addOrder, getMenuItems, getMenuItemsById, getOrderItems, removeOrderItems, updateOrderItems, getCheckout, getOrderInfo };

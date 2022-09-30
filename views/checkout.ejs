@@ -23,8 +23,9 @@
     <h1>Your Cart </h1>
 
     <% for (let item of order) { %>
+      <% if (item.quantity > 0 ) { %>
     <div class="menu_display">
-      <div class="aside"><img class="user" src="/images/menuitem1.jpg" width="100px"  /></div>
+      <img src=<%= item.image_url %>>
       <div class="menu_info">
         <p class="item-name">Item Name: <%= item.name %></p>
         <p class="item-price">Item Price: $<%= item.price %></p>
@@ -39,6 +40,7 @@
         Update
       </button>
     </div>
+    <% } %>
     <% } %>
 
     <div class="menu_display">
