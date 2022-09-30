@@ -20,37 +20,39 @@
 
 <body>
   <%- include('partials/_header') %>
-   
+
     <h1>Order Confirmation</h1>
 
     <div class="menu_change">
-      <p class=""><strong> Thank you for placing order with us</strong></p>   
- 
-      <label class="display"><strong>Order Number: </strong> 1001</label>
-      <label class="display"><strong>Customer Name:</strong> Abc </label>
-      <label class="display"><strong>Mobile No. :</strong>123456789</label>
+      <p class=""><strong> Thank you for placing order with us</strong></p>
+
+      <label class="display"><strong>Order Number: </strong> <%= order.orderInfo[0].order_id %></label>
+      <label class="display"><strong>Customer Name:</strong> <%= user.name %> </label>
+      <label class="display"><strong>Mobile No. :</strong><%= user.phone_number %></label>
       <br>
-       <p class=""><h4><strong> Your order is placed successfully! You will receive an SMS at 123456789 for pickup time.</strong></h4> </strong></p>   
-      
+       <p class=""><h4><strong> Your order is placed successfully! You will receive an SMS at <%= user.phone_number %> for pickup time.</strong></h4> </strong></p>
+
      <br><br>
     </div>
 
     <div class="menu_display">
-      <label class=""><h4>Your list of Food ordered items</h4></label>
+      <label class=""><h4>Your Ordered Food Items: </h4></label>
 
-      <div class="aside"><img class="user" src="/images/menuitem1.jpg" width="100px" /></div>
+      <% for (let item of order.orderInfo.rows) { %>
+      <div class="aside"><img class="user" src= <%= item.image %> width="100px" /></div>
       <div class="menu_info">
-        <p class="item-name">ITEM NAME: Dish1</p>
-        <p class="item-price">ITEM PRICE: $10</p>
+        <p class="item-name">ITEM NAME: <%= item.name %></p>
+        <p class="item-price">ITEM PRICE: <%= item.price %></p>
       </div>
-      <label class="display" data-product-id="" id="">Quantity: 3</label>
-       
+      <label class="display" data-product-id="" id="">Quantity: <%= item.quantity %></label>
+      <% } %>
+
     </div>
 
 
     <div class="menu_display">
       <div class="col">
-        <p id="totalprice"><strong><h5>Order Total : $200 </h5> </strong></p>
+        <p id="totalprice"><strong><h5>Order Total : $<%= (orderTotal/100).toFixed(2) %> </h5> </strong></p>
       </div>
      </div>
 </body>

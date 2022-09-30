@@ -106,8 +106,17 @@ router.get("/confirmation/:id", (req, res) => {
   if (!req.session.userId) {
     return res.redirect("/login");
   }
-
-  res.render("confirmation", orderTotal());
+  return database.getUserById(req.session.userId)
+  .then (user => {
+    database.getCheckout(req.params.id)
+    .then (orderInfo => {
+      database.orderTotal(req.params.id)
+      .then (orderTotal => {
+        res.render("checkout", { order: orderInfo.rows, user, orderTotal});
+      })
+    })
+  })
+  //res.render("confirmation", orderTotal());
 });
 
 router.post("/register", (req, res) => {
