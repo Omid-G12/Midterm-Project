@@ -29,9 +29,9 @@
   <body>
     <%- include('partials/_header') %>
     <h1>Menu Page</h1>
-    <form action="/menu" method="POST">
 
     <div class="menu">
+      <form method="POST" action='/api/order'>
       <% for (let item of menu) { %>
       <div class="menu_display">
         <img class="user" src= <%= item.image_url %> width="100px" />
@@ -45,7 +45,7 @@
           </div>
 
           <div class="menu_change">
-            <input type="number" name="increment" class="quantity-<%= item.id %>">
+            <input type="number" name="<%= item.id %>" class="quantity-<%= item.id %>" value =>
             <!--<input type="button" value="+" class="increment" onclick="" />
             <label class="display">1</label>
             <input type="button" value="-" class="decrement" onclick="" /> -->
@@ -58,20 +58,10 @@
       <% } %>
 
       <div class="col">
-        <form method="POST" action="/checkout"><button type="submit" class="btn btn-danger" id="place-order">Ready to checkout</button></form>
-        <!-- <button
-          type="submit"
-          class="btn btn-success"
-          id="place-order"
-
-        >
-
-          Ready to checkout
-        </button> -->
+        <button class="btn btn-danger" id = "place-order">Ready to checkout</button>
       </div>
-
-    </div>
     </form>
+    </div>
   </body>
 </html>
 
