@@ -90,8 +90,10 @@ return database.getUserById(req.session.userId)
 .then (user => {
   database.getCheckout(req.params.id)
   .then (orderInfo => {
-    console.log("orderinfo", orderInfo.rows);
-    res.render("checkout", { order: orderInfo.rows, user});
+    database.orderTotal(req.params.id)
+    .then (orderTotal => {
+      res.render("checkout", { order: orderInfo.rows, user, orderTotal});
+    })
   })
 })
 });
@@ -133,6 +135,7 @@ router.post("/register", (req, res) => {
       })
       .catch(e => res.send("Error")); //dont send error info, just a message
   });
+  });
 
   router.post("/logout", (req, res) => {
     const id = req.session.user_id;
@@ -140,9 +143,5 @@ router.post("/register", (req, res) => {
     req.session = null;
     res.redirect("/login");
   });
-
-
-
-});
 
 module.exports = router;
